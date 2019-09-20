@@ -16,6 +16,8 @@ program save_data
     }
 
     isid `key', sort `missok'
+    order `key', first
+    compress
 
     if "`log_replace'"!="" {
         print_info_to_log using `log', filename(`filename') key(`key') overwrite
@@ -24,8 +26,6 @@ program save_data
         print_info_to_log using `log', filename(`filename') key(`key')
     }
 
-    placevar `key'
-    compress
 
     if "`export'"!="" {
         export delimited using `filename', `options'
@@ -38,13 +38,13 @@ end
 
 program define_default_log_file
     syntax anything(name=local), filename(string) default(string)
-    if regexm("`filename'", "(\/output\/)(.+\/)") == 1 {
+    if regexm("`filename'", "(^.*output\/)(.+\/)") == 1 {
         local newdir = regexs(1) + regexs(2) + "`default'"
-        c_local `local' "../`newdir'"
+        c_local `local' "`newdir'"
     }
-    else if regexm("`filename'", "(\/output\/)") == 1 {
+    else if regexm("`filename'", "(^.*output\/)") == 1 {
         local newdir = regexs(1) + "`default'"
-        c_local `local' "../`newdir'"
+        c_local `local' "`newdir'"
     }
     else {
         c_local `local' "none"

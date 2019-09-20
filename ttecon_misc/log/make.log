@@ -1,5 +1,5 @@
 
- make.py started: 2019-09-19 22:19:51 /Users/linhto/projects/ttecon_stata/ttecon_misc 
+ make.py started: 2019-09-19 22:53:38 /Users/linhto/projects/ttecon_stata/ttecon_misc 
 
 
 Traceback (most recent call last):
@@ -42,7 +42,7 @@ Test failed
 end of do-file
 
 
-Time   :  2019-09-19 22:19:57
+Time   :  2019-09-19 22:53:43
 
 
 Execute:  statase -b -q do "test_testbad.do" 
@@ -83,7 +83,7 @@ Test failed
 end of do-file
 
 
-Time   :  2019-09-19 22:19:59
+Time   :  2019-09-19 22:53:44
 
 
 Execute:  statase -b -q do "test_save_data.do" 
@@ -130,7 +130,7 @@ Test passed
 end of do-file
 
 
-Time   :  2019-09-19 22:20:00
+Time   :  2019-09-19 22:53:45
 
 
 Execute:  statase -b -q do "test_preliminaries.do" 
@@ -368,7 +368,7 @@ request ignored because of batch mode
 end of do-file
 
 
-Time   :  2019-09-19 22:20:01
+Time   :  2019-09-19 22:53:46
 
 
 Execute:  statase -b -q do "test_select_observations.do" 
@@ -402,7 +402,7 @@ Test passed
 end of do-file
 
 
-Time   :  2019-09-19 22:20:03
+Time   :  2019-09-19 22:53:47
 
 
 Execute:  statase -b -q do "test_build_recode_template.do" 
@@ -435,7 +435,7 @@ Test passed
 end of do-file
 
 
-Time   :  2019-09-19 22:20:04
+Time   :  2019-09-19 22:53:48
 
 
 Execute:  statase -b -q do "test_insert_tag.do" 
@@ -472,7 +472,7 @@ Test passed
 end of do-file
 
 
-Time   :  2019-09-19 22:20:06
+Time   :  2019-09-19 22:53:49
 
 
 Execute:  statase -b -q do "test_load_and_append.do" 
@@ -634,4 +634,4 @@ r(198);
 end of do-file
 r(198);
 
- make.py ended: 2019-09-19 22:20:07
+ make.py ended: 2019-09-19 22:53:50

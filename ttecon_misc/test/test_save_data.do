@@ -9,7 +9,6 @@ quietly {
     set more off
     adopath + ../ado
     preliminaries
-    ssc install fsum
 
     program main
         tempfile tempdta temptxt tempcsv templog
