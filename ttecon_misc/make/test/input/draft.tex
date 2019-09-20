@@ -1,0 +1,47 @@
+%
+\documentclass{article}
+
+\usepackage{amssymb,amsthm,amsmath,amsfonts,hyperref}
+\usepackage[margin=1in]{geometry}
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\begin{document}
+
+\author{Neil Thakral\thanks{E-mail: \texttt{nthakral@fas.harvard.edu}. I am grateful to Kfir~Eliaz for his constant support and encouragement. I would also like to thank Itay~Fainmesser, David~Laibson, Xiaosheng~Mu, Parag~Pathak, Tayfun~S\"{o}nmez, and especially Scott~Duke~Kominers and Linh~T.~T\^{o} for helpful comments and discussion.}}
+
+We study matching in a dynamic setting, i.e., a setting in which objects of different types that arrive stochastically over time.
+
+More generally, we show that the mechanism continues to satisfy these properties if and only if the priority relations satisfy an acyclicity condition. We then turn to an application of the framework by evaluating the procedures that are currently being used to allocate public housing and estimating the welfare gains from adopting the new mechanism.
+
+U.S.\ Department of Housing
+
+The applicant with the highest priority is assigned the first room that becomes available.\footnote{If she refuses, then she does not receive any allocation and her application is withdrawn or she is moved to the bottom of the waiting list. Such mechanisms are used by public housing agencies in \href{http://www.housingforhouston.com/public-housing/apply-for-public-housing.aspx}{Houston, TX} and \href{http://www.pha-providence.com/index.php?cID=faq}{Providence, RI}, for example.}
+
+In a setting such as public housing allocation, acyclicity would be satisfied if there are eligibility restrictions whereby some buildings are only available to applicants with sufficiently high priority. Additionally, acyclicity can be satisfied in a system with multiple programs that share a ranking over applicants but have some discretion on final priorities based on interviews.\footnote{See, for example, the allocation procedure in the \href{http://www.dchousing.org/?docid=95}{District of Columbia}.}
+
+
+
+\begin{itemize}
+    \item general setup
+    \begin{itemize}
+        \item continuum of consumers, unit demand for an indivisible good, outside option gives utility zero
+        \item firms produce good with $n$ attributes $x=(x_1,\dots,x_n)$, at cost $C(x)$ which is increasing in each $x_i$, sell at price $p$
+        \item consumer $j$'s  utility is $u^j(x) = -p_x + \frac{1}{n}\sum_{i=1}^n \theta_i^j x_i$, where $\theta_i^j$ is i.i.d\ with density function $f_i$
+        \item local thinker focuses only on the $k$ most salient attributes and evaluates the good using $v(x) = -p_x + \frac{1}{k}\sum_{i\in K} \theta_i x_i$, where $K=\argmax_{K\subseteq\{1,\dots,n\}}\left\{\sum_{i \in K}\left \vert x_i \right \vert : \left \vert K \right \vert=k\right\}$
+    \end{itemize}
+    \item special case: one firm (monopoly), single good, $k=1$, $\theta \sim U[0,1]$, $c(x)=\frac{1}{2}x^2$
+    \begin{itemize}
+        \item $j$ buys iff $-p+\theta x\geq0$
+        \item monopolist chooses $p$ and $x$ to maximize profit: $p\cdot\mu\left\{\theta:\frac{p}{x}\leq\theta\right\}-c(x)$
+        \item $\max_{p,x}\left\{p\cdot\left(1-\frac{p}{x}\right)-c(x)\right\}$
+        \item FOC($p$): $1-\frac{2p}{x}=0$ $\implies \frac{p}{x} = \frac{1}{2}$
+        \item FOC($x$): $\frac{p^2}{x^2}-c^\prime(x)=0$ $\implies \frac{p^2}{x^2} = c^\prime(x) = x$
+        \item hence $x=\frac{1}{4}$ and $p=\frac{1}{8}$, profit is $\frac{1}{32}$
+    \end{itemize}
+\end{itemize}
+
+Pittsburgh's waiting list.\footnote{Housing applicant's preferences.}
+
+\end{document}

@@ -1,0 +1,7 @@
+// Convert test_data.xls to ../output/test_data.csv
+
+log using convert.log
+
+copy ./input/test_data.xls  ..\output\test_data.csv -y
+
+quit

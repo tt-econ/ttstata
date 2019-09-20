@@ -1,0 +1,162 @@
+#! /usr/bin/env python
+
+import unittest
+import sys
+import os
+import shutil
+import re
+sys.path.insert(0, os.path.abspath("../.."))
+from make.py.make_log import start_make_logging
+from make.py.make_links import make_links
+from make.py.dir_mod import clear_output_dirs, remove_dir
+from nostderrout import nostderrout
+
+
+class testMakeLinks(unittest.TestCase):
+
+    def setUp(self):
+        self.output_dir = '../output/'
+
+        with nostderrout():
+            clear_output_dirs(self.output_dir, '')
+            start_make_logging(self.output_dir + 'make.log')
+
+    def test_legal_input(self):
+        default_makelog_file = os.path.join(self.output_dir, 'make.log')
+        default_links_dir = '../external_links/'
+        self.assertFalse(os.path.isdir(default_links_dir))
+        links = './input/links_legal.txt'
+
+        with nostderrout():
+            make_links(links, quiet=True)
+
+        self.assertTrue(os.path.isdir(default_links_dir))
+
+        links_data = open(links, 'r').readlines()
+        comments_ct = self.find_comment_lines(links_data)
+        wildcard_lines_ct = len([l for l in links_data if '*' in l])
+        wildcard_files_ct = len([f for f in os.listdir('./input/')
+                                if f.endswith('_script.m')])
+        number_of_links = len(links_data) - comments_ct - wildcard_lines_ct + \
+            wildcard_files_ct
+        success_count = self.get_string_count(default_makelog_file,
+                                              'Symlink successfully created.')
+        self.assertTrue(success_count == number_of_links)
+
+        prefix_files_ct = len([f for f in os.listdir('../external_links/')
+                              if f.startswith('input_')])
+        self.assertEqual(prefix_files_ct, wildcard_files_ct)
+
+        f = open('../external_links/ext.txt', 'r')
+        self.assertTrue(f.readline().startswith('11 22'))
+        f.close()
+
+        logfile_data = open(default_makelog_file, 'r').read()
+        self.assertNotIn('Error', logfile_data)
+
+    def test_multiple_input_list(self):
+        default_makelog_file = os.path.join(self.output_dir, 'make.log')
+        default_links_dir = '../external_links/'
+        self.assertFalse(os.path.isdir(default_links_dir))
+
+        with nostderrout():
+            make_links(['./input/link_a.txt', './input/link_b.txt'],
+                       quiet=True)
+
+        self.assertTrue(os.path.isdir(default_links_dir))
+        links1_data = open('./input/link_a.txt', 'r').readlines()
+        links2_data = open('./input/link_b.txt', 'r').readlines()
+        comments1 = self.find_comment_lines(links1_data)
+        comments2 = self.find_comment_lines(links2_data)
+        number_of_links = len(links1_data) + len(links2_data) - comments1 - \
+            comments2
+        success_count = self.get_string_count(default_makelog_file,
+                                              'Symlink successfully created.')
+        self.assertEqual(success_count, number_of_links)
+        logfile_data = open(default_makelog_file, 'r').read()
+        self.assertNotIn('Error', logfile_data)
+
+    def test_multiple_input_string(self):
+        default_makelog_file = os.path.join(self.output_dir, 'make.log')
+        default_links_dir = '../external_links/'
+        self.assertFalse(os.path.isdir(default_links_dir))
+
+        with nostderrout():
+            make_links('./input/link_a.txt ./input/link_b.txt', quiet=True)
+
+        self.assertTrue(os.path.isdir(default_links_dir))
+        links1_data = open('./input/link_a.txt', 'r').readlines()
+        links2_data = open('./input/link_b.txt', 'r').readlines()
+        comments1 = self.find_comment_lines(links1_data)
+        comments2 = self.find_comment_lines(links2_data)
+        number_of_links = len(links1_data) + len(links2_data) - comments1 - \
+            comments2
+        success_count = self.get_string_count(default_makelog_file,
+                                              'Symlink successfully created.')
+        self.assertEqual(success_count, number_of_links)
+        logfile_data = open(default_makelog_file, 'r').read()
+        self.assertNotIn('Error', logfile_data)
+
+    def test_wildcard_input(self):
+        default_makelog_file = os.path.join(self.output_dir, 'make.log')
+        default_links_dir = '../external_links/'
+        self.assertFalse(os.path.isdir(default_links_dir))
+
+        with nostderrout():
+            make_links('./input/link_*.txt', quiet=True)
+
+        self.assertTrue(os.path.isdir(default_links_dir))
+        links1_data = open('./input/link_a.txt', 'r').readlines()
+        links2_data = open('./input/link_b.txt', 'r').readlines()
+        comments1 = self.find_comment_lines(links1_data)
+        comments2 = self.find_comment_lines(links2_data)
+        number_of_links = len(links1_data) + len(links2_data) - comments1 - \
+            comments2
+        success_count = self.get_string_count(default_makelog_file,
+                                              'Symlink successfully created.')
+        self.assertEqual(success_count, number_of_links)
+        logfile_data = open(default_makelog_file, 'r').read()
+        self.assertNotIn('Error', logfile_data)
+
+    def test_illegal_input(self):
+        default_makelog_file = self.output_dir + 'make.log'
+        links = './input/links_illegal.txt'
+
+        with nostderrout():
+            make_links(links, quiet=True)
+
+        success_count = self.get_string_count(default_makelog_file,
+                                              'Symlink successfully created.')
+        self.assertEqual(success_count, 0)
+
+    def get_string_count(self, logfile, string):
+        logfile_data = open(logfile, 'r').readlines()
+        count = 0
+        for line in logfile_data:
+            if line.startswith(string):
+                count += 1
+
+        return count
+
+    def find_comment_lines(self, lines):
+        comments = 0
+        for line in lines:
+            if re.match('^#', line):
+                comments += 1
+            if re.match('^\\n', line):
+                comments += 1
+        return comments
+
+    def tearDown(self):
+        if os.path.isdir('../output/'):
+            shutil.rmtree('../output/')
+        if os.path.isdir('../external/'):
+            shutil.rmtree('../external/')
+        if os.path.isdir('../external_links/'):
+            remove_dir('../external_links/')
+        if os.path.isdir('../cust_data_links/'):
+            remove_dir('../cust_data_links/')
+
+if __name__ == '__main__':
+    os.getcwd()
+    unittest.main()

@@ -1,0 +1,14 @@
+.-
+help for ^wxtsum^
+.-
+
+Description
+-----------------------------------------------------------------------
+
+Custom version of Stata's xtsum command that shows the full variable names
+even when the variable names are longer than 8.
+
+
+See also
+--------
+@xtsum@
