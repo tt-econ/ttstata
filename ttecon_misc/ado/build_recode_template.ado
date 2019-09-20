@@ -117,8 +117,7 @@ program import_recode_values
         }
 
         use `using', clear
-        merge 1:1 `key' attribute code using `temp', keep(match) keepusing(`varname' notes)
-
+        merge 1:1 `key' attribute code using `temp', keep(match using master) keepusing(`varname' notes)
         if _merge==2 {
             show_warning
             drop if _merge==2

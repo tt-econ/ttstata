@@ -18,14 +18,14 @@ clear_output_dirs()
 start_make_logging()
 
 # RUN ALL TESTS
-run_stata(program='test/test_testgood.do', changedir=True, executable='statase')
-run_stata(program='test/test_testbad.do', changedir=True, executable='statase')
-run_stata(program='test/test_save_data.do', changedir=True, executable='statase')
-run_stata(program='test/test_preliminaries.do', changedir=True, executable='statase')
-run_stata(program='test/test_select_observations.do', changedir=True, executable='statase')
-run_stata(program='test/test_build_recode_template.do', changedir=True, executable='statase')
-run_stata(program='test/test_insert_tag.do', changedir=True, executable='statase')
-run_stata(program='test/test_load_and_append.do', changedir=True, executable='statase')
+run_stata(program='test/test_testgood.do', changedir=True, executable='stata-mp')
+run_stata(program='test/test_testbad.do', changedir=True, executable='stata-mp')
+run_stata(program='test/test_save_data.do', changedir=True, executable='stata-mp')
+run_stata(program='test/test_preliminaries.do', changedir=True, executable='stata-mp')
+run_stata(program='test/test_select_observations.do', changedir=True, executable='stata-mp')
+run_stata(program='test/test_build_recode_template.do', changedir=True, executable='stata-mp')
+run_stata(program='test/test_insert_tag.do', changedir=True, executable='stata-mp')
+run_stata(program='test/test_load_and_append.do', changedir=True, executable='stata-mp')
 
 end_make_logging()
 
