@@ -11,14 +11,17 @@ program main
     * Test dta files
     testgood load_and_append ./temp/file1 ./temp/file2 ./temp/file3, clear
     testgood load_and_append ./temp/file1.dta ./temp/file2.dta ./temp/file3.dta, clear
+    sort x y
     qui save "`tempmerged'", replace
 
     * Test tsv files
     testgood load_and_append ./temp/delim/file1.txt ./temp/delim/file2.txt ./temp/delim/file3.txt, clear import
+    sort x y
     testgood cf * using "`tempmerged'"
 
     * Test csv files
     testgood load_and_append ./temp/delim/file1.csv ./temp/delim/file2.csv ./temp/delim/file3.csv, clear import
+    sort x y
     testgood cf * using `"`tempmerged'"'
 
     * Test dir() option
@@ -26,6 +29,7 @@ program main
     testgood load_and_append file1 file2 file3, dir(./temp/) clear
     testgood load_and_append file1.txt file2.txt file3.txt, dir(./temp/delim/) import clear
     testgood load_and_append delim/file1.txt delim/file2.txt delim/file3.txt, dir(./temp/) import clear
+    sort x y
     testgood cf * using `"`tempmerged'"'
 
     * Test wildcards
@@ -33,12 +37,14 @@ program main
     testgood load_and_append file*.dta, dir(./temp) clear
     testgood load_and_append ./temp/file*.dta, clear
     testgood load_and_append ./temp/delim/file*.txt, clear import
+    sort x y
     testgood cf * using `"`tempmerged'"'
 
     * Test clear
     testbad load_and_append ./temp/file1 ./temp/file2 ./temp/file3
     clear
     testgood load_and_append ./temp/file1 ./temp/file2 ./temp/file3
+    sort x y
     testgood cf * using `"`tempmerged'"'
 
     * Test import_options
@@ -46,11 +52,13 @@ program main
         clear import import_options(blah)
     testgood load_and_append ./temp/delim/file1.csv ./temp/delim/file2.csv ./temp/delim/file3.csv, ///
         clear import import_options(case(preserve))
+    sort x y
     testgood cf * using `"`tempmerged'"'
 
     * Test append_options
     testbad load_and_append ./temp/file1 ./temp/file2 ./temp/file3, clear append_options(blah)
     testgood load_and_append ./temp/file1 ./temp/file2 ./temp/file3, clear append_options(force)
+    sort x y
     testgood cf * using `"`tempmerged'"'
 
     * Test breaks if list has only one file
@@ -111,8 +119,8 @@ program cleanup
         rm temp/delim/file`i'.csv
         rm temp/delim/file`i'.txt
     }
-    rmdir temp/delim
-    rmdir temp
+   capture  rmdir temp/delim
+   capture  rmdir temp
 end
 
 * EXECUTE

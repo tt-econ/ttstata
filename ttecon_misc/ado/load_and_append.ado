@@ -6,7 +6,6 @@
 
  program load_and_append
     version 13
-    adopath + ../../../third_party/stata_tools
 
     syntax anything, [clear import dir(str) import_options(str) append_options(str) DSId(string) DSName(string) OBSseq(string) SUBset(string asis) fast ]
 
