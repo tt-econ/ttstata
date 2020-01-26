@@ -1,0 +1,9 @@
+d ttstata: misc
+d
+d Author: CJ Verbeck
+d
+d preliminaries: Command to set preliminaries for do files
+d
+f preliminaries.ado
+f preliminaries.hlp
+e
