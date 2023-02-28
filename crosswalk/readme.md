@@ -6,7 +6,7 @@ See this directory's `.hlp` files for more information.
 Enter the following at the Stata console.
 
 ```stata
-net from https://raw.githubusercontent.com/linhtto/ttstata/master/crosswalk/ado
+net from https://raw.githubusercontent.com/tt-econ/ttstata/master/crosswalk/ado
 net install make_input_template, replace
 net install merge_manual_input,  replace
 net install save_crosswalk,      replace

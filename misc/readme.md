@@ -17,7 +17,7 @@ net install dm75, replace
 Enter the following at the Stata console.
 
 ```stata
-net from https://raw.githubusercontent.com/linhtto/ttstata/master/misc/ado
+net from https://raw.githubusercontent.com/tt-econ/ttstata/master/misc/ado
 net install benchmark,             replace
 net install build_recode_template, replace
 net install cf_mg,                 replace

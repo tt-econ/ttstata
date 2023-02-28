@@ -7,7 +7,7 @@ individual errors.
 Enter the following at the Stata console.
 
 ```stata
-net from https://raw.githubusercontent.com/linhtto/ttstata/master/xtreg_ch/ado
+net from https://raw.githubusercontent.com/tt-econ/ttstata/master/xtreg_ch/ado
 net install xtreg_ch,        replace
 net install xtreg_ch_loglik, replace
 ```
