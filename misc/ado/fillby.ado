@@ -1,4 +1,4 @@
-/t*********************************************************
+/*********************************************************
  *
  * FILLBY.ADO: Fill in missing values of variable(s) X within
  *   groups defined by variable(s) Y. Fillby requires
